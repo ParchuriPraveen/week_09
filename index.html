@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Number Programs</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
+header{background:#172554;color:white;text-align:center;padding:28px 16px}
+main{max-width:950px;margin:25px auto;padding:0 16px}
+.layout{display:grid;grid-template-columns:230px 1fr;gap:18px}
+nav,.panel{background:white;border-radius:12px;padding:18px;box-shadow:0 3px 12px #00000012}
+nav button{display:block;width:100%;text-align:left;margin:7px 0;padding:12px;border:0;border-radius:7px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-weight:bold}
+nav button:hover,nav button.active{background:#1d4ed8;color:white}
+.program{display:none}.program.active{display:block}
+h2{color:#1d4ed8;margin-top:0}pre{background:#0f172a;color:#a5f3fc;padding:16px;border-radius:8px;overflow:auto;white-space:pre-wrap}
+.run{background:#2563eb;color:white;border:0;border-radius:7px;padding:11px 17px;cursor:pointer}
+.note{background:#fef3c7;padding:12px;border-radius:8px;margin:15px 0}
+@media(max-width:650px){.layout{grid-template-columns:1fr}nav{display:grid;grid-template-columns:1fr 1fr;gap:5px}nav button{margin:0}}
+</style>
+</head>
+<body>
+<header>
+<h1>JavaScript Number Programs</h1>
+<p>Armstrong · Even or Odd · Fibonacci · Perfect · Prime</p>
+</header>
+<main>
+<div class="layout">
+<nav aria-label="Programs">
+<button class="active" onclick="showProgram('armstrong',this)">1. Armstrong Number</button>
+<button onclick="showProgram('even',this)">2. Even or Odd</button>
+<button onclick="showProgram('fibonacci',this)">3. Fibonacci Series</button>
+<button onclick="showProgram('perfect',this)">4. Perfect Number</button>
+<button onclick="showProgram('prime',this)">5. Prime Number</button>
+</nav>
+<div class="panel">
+<section id="armstrong" class="program active">
+<h2>1. Armstrong Number</h2>
+<p>An Armstrong number equals the sum of its digits, each raised to the power of the number of digits.</p>
+<p><b>Sample input:</b> 153</p>
+<button class="run" onclick="runArmstrong()">Run Program</button>
+<pre><code>function checkArmstrong(number) {
+    const digits = String(number).split("");
+    const power = digits.length;
+    const sum = digits.reduce((total, digit) =>
+        total + Number(digit) ** power, 0);
+
+    console.log("Number:", number);
+    console.log("Sum:", sum);
+    console.log(sum === number
+        ? "Armstrong number"
+        : "Not an Armstrong number");
+}
+checkArmstrong(153);</code></pre>
+</section>
+
+<section id="even" class="program">
+<h2>2. Even or Odd</h2>
+<p>A number divisible by 2 with remainder 0 is even; otherwise it is odd.</p>
+<p><b>Sample input:</b> 24</p>
+<button class="run" onclick="runEven()">Run Program</button>
+<pre><code>function checkEvenOrOdd(number) {
+    if (number % 2 === 0) {
+        console.log(number + " is Even");
+    } else {
+        console.log(number + " is Odd");
+    }
+}
+checkEvenOrOdd(24);</code></pre>
+</section>
+
+<section id="fibonacci" class="program">
+<h2>3. Fibonacci Series</h2>
+<p>Each term is the sum of the two previous terms. This series starts with 0 and 1.</p>
+<p><b>Sample input:</b> 10 terms</p>
+<button class="run" onclick="runFibonacci()">Run Program</button>
+<pre><code>function fibonacciSeries(terms) {
+    let first = 0, second = 1;
+    let series = [];
+
+    for (let i = 0; i &lt; terms; i++) {
+        series.push(first);
+        let next = first + second;
+        first = second;
+        second = next;
+    }
+
+    console.log("Fibonacci Series:", series.join(", "));
+}
+fibonacciSeries(10);</code></pre>
+</section>
+
+<section id="perfect" class="program">
+<h2>4. Perfect Number</h2>
+<p>A perfect number equals the sum of its positive divisors excluding itself. Example: 6 = 1 + 2 + 3.</p>
+<p><b>Sample input:</b> 28</p>
+<button class="run" onclick="runPerfect()">Run Program</button>
+<pre><code>function checkPerfectNumber(number) {
+    let sum = 0;
+
+    for (let i = 1; i &lt;= number / 2; i++) {
+        if (number % i === 0) {
+            sum += i;
+        }
+    }
+
+    console.log("Sum of proper divisors:", sum);
+    console.log(sum === number
+        ? "Perfect number"
+        : "Not a Perfect number");
+}
+checkPerfectNumber(28);</code></pre>
+</section>
+
+<section id="prime" class="program">
+<h2>5. Prime Number</h2>
+<p>A prime number is greater than 1 and has exactly two factors: 1 and itself.</p>
+<p><b>Sample input:</b> 17</p>
+<button class="run" onclick="runPrime()">Run Program</button>
+<pre><code>function checkPrime(number) {
+    if (number &lt;= 1) {
+        console.log("Not a Prime number");
+        return;
+    }
+
+    let isPrime = true;
+    for (let i = 2; i &lt;= Math.sqrt(number); i++) {
+        if (number % i === 0) {
+            isPrime = false;
+            break;
+        }
+    }
+
+    console.log(isPrime
+        ? number + " is Prime"
+        : number + " is Not Prime");
+}
+checkPrime(17);</code></pre>
+</section>
+
+<p class="note"><b>Console:</b> Press F12 and open the Console tab. Select a program and click Run Program. The selected program also runs automatically when you choose it.</p>
+</div>
+</div>
+</main>
+<script>
+function showProgram(id, button) {
+    document.querySelectorAll(".program").forEach(section => section.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    document.querySelectorAll("nav button").forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+    const runners = {
+        armstrong: runArmstrong,
+        even: runEven,
+        fibonacci: runFibonacci,
+        perfect: runPerfect,
+        prime: runPrime
+    };
+    runners[id]();
+}
+
+function runArmstrong() {
+    console.log("\\n===== ARMSTRONG NUMBER =====");
+    const number = 153;
+    const digits = String(number).split("");
+    const power = digits.length;
+    const sum = digits.reduce((total, digit) => total + Number(digit) ** power, 0);
+    console.log("Number:", number);
+    console.log("Sum:", sum);
+    console.log(sum === number ? "Armstrong number" : "Not an Armstrong number");
+}
+function runEven() {
+    console.log("\\n===== EVEN OR ODD =====");
+    const number = 24;
+    console.log("Number:", number);
+    console.log(number % 2 === 0 ? number + " is Even" : number + " is Odd");
+}
+function runFibonacci() {
+    console.log("\\n===== FIBONACCI SERIES =====");
+    const terms = 10;
+    let first = 0, second = 1;
+    const series = [];
+    for (let i = 0; i < terms; i++) {
+        series.push(first);
+        const next = first + second;
+        first = second;
+        second = next;
+    }
+    console.log("Number of terms:", terms);
+    console.log("Fibonacci Series:", series.join(", "));
+}
+function runPerfect() {
+    console.log("\\n===== PERFECT NUMBER =====");
+    const number = 28;
+    let sum = 0;
+    for (let i = 1; i <= number / 2; i++) {
+        if (number % i === 0) sum += i;
+    }
+    console.log("Number:", number);
+    console.log("Sum of proper divisors:", sum);
+    console.log(sum === number ? "Perfect number" : "Not a Perfect number");
+}
+function runPrime() {
+    console.log("\\n===== PRIME NUMBER =====");
+    const number = 17;
+    let isPrime = number > 1;
+    for (let i = 2; i <= Math.sqrt(number); i++) {
+        if (number % i === 0) { isPrime = false; break; }
+    }
+    console.log("Number:", number);
+    console.log(isPrime ? number + " is Prime" : number + " is Not Prime");
+}
+
+// Run the default program when the page first opens.
+console.log("===== JAVASCRIPT NUMBER PROGRAMS =====");
+runArmstrong();
+</script>
+</body>
+</html>
